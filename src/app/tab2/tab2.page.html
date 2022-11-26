@@ -1,17 +1,88 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
+    <ion-title color="tertiary">
+      Imágenes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
+      <ion-title size="large">Imágenes</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="main-content" style="position: relative;">
+
+    <ion-button color="light" shape="round" class="arrow-left" (click)="slider.slidePrev()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-button>
+    <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">
+      <ion-slide button *ngFor="let file of allMedia; index as i" fxLayout="column">
+
+        <ion-card (click)="selectMedia(file)" class="imgPlayAudio">
+          <!-- <img src="data:image/png;base64,{{file.previewSrc}}" alt=""> -->
+
+          <img *ngIf="file.isImage&&!file.isVideo" src="{{file.previewSrc}}" alt="">
+
+          <video *ngIf="!file.isImage&&file.isVideo" controls>
+            <source src="{{file.previewSrc}}" type="video/mp4">
+          </video>
+          
+          <!-- <audio *ngIf="!file.isImage&&!file.isVideo" controls="controls" #figAudio>
+            <source [src]="playAudio[i]" type="audio/mp3" />
+          </audio> -->
+          <audio *ngIf="!file.isImage&&!file.isVideo" controls="controls">
+            <source src="{{file.previewAudio}}" type="audio/mp3" />
+          </audio>
+
+
+        </ion-card>
+        
+        <ion-list>
+          <ion-item>
+            <ion-label color="primary">Titulo
+              <p>{{file.name}}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label color="primary">Caracteristicas
+              <p>{{file.description}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        
+      </ion-slide>
+    </ion-slides>
+    <ion-button color="light" shape="round" class="arrow-right" (click)="slider.slideNext()">
+      <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+    </ion-button>
+
+  </div>
+
+  <div class="comments" *ngIf="currentMedia">
+    <ion-list>
+      <div class="posts" *ngFor="let item of currentMedia.comments">
+        <ion-item class="title" lines="none">
+          <ion-text>
+            <h3>{{item.user}}</h3>
+            <p>2h</p>
+          </ion-text>
+        </ion-item>
+        <ion-item lines="none">
+          <p>{{item.comment}}</p>
+        </ion-item>
+        <ion-item>
+          <ion-buttons mode="ios">
+            <ion-button (click)="liked(item)" [style.color]="item.like? '#e52f1e':'#808080'">
+              <ion-icon name="heart"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </div>
+    </ion-list>
+  </div>
+
+
 </ion-content>

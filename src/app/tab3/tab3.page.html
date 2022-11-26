@@ -1,17 +1,26 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      Mis fotos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <!-- <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 3</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <div class="main-content">
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="newPhoto()" color="secondary">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+  </div>
+
 </ion-content>
