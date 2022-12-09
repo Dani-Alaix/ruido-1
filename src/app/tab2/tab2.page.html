@@ -21,7 +21,7 @@
     <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">
       <ion-slide button *ngFor="let file of allMedia; index as i" fxLayout="column">
 
-        <ion-card (click)="selectMedia(file)" class="imgPlayAudio">
+        <ion-card class="imgPlayAudio">
           <!-- <img src="data:image/png;base64,{{file.previewSrc}}" alt=""> -->
 
           <img *ngIf="file.isImage&&!file.isVideo" src="{{file.previewSrc}}" alt="">
@@ -29,7 +29,7 @@
           <video *ngIf="!file.isImage&&file.isVideo" controls>
             <source src="{{file.previewSrc}}" type="video/mp4">
           </video>
-          
+
           <!-- <audio *ngIf="!file.isImage&&!file.isVideo" controls="controls" #figAudio>
             <source [src]="playAudio[i]" type="audio/mp3" />
           </audio> -->
@@ -37,28 +37,27 @@
             <source src="{{file.previewAudio}}" type="audio/mp3" />
           </audio>
 
-
         </ion-card>
-        
-        <ion-list>
-          <ion-item>
-            <ion-label color="primary">Titulo
-              <p>{{file.name}}</p>
-            </ion-label>
-          </ion-item>
-          <ion-item>
-            <ion-label color="primary">Caracteristicas
-              <p>{{file.description}}</p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-        
+        <ion-icon name="caret-down-outline" (click)="selectMedia(file)"></ion-icon>
       </ion-slide>
     </ion-slides>
     <ion-button color="light" shape="round" class="arrow-right" (click)="slider.slideNext()">
       <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
     </ion-button>
 
+  </div>
+  <div class="comments" *ngIf="currentMedia" fxLayout="row">
+    
+      <ion-item>
+        <ion-label color="primary">Título
+          <p>{{currentMedia.name}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary">Descripción
+          <p>{{currentMedia.description}}</p>
+        </ion-label>
+      </ion-item>
   </div>
 
   <div class="comments" *ngIf="currentMedia">
