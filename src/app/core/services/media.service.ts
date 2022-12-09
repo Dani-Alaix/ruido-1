@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class MediaService {
 
-  constructor() { }
+  private collection: AngularFirestoreCollection;
 
+  constructor(private fireStore: AngularFirestore) {
+    this.collection = fireStore.collection<any>('test');
+  }
 
   public guessImageBase64MimeType(imageBase64: string) {
     var initChar = imageBase64.charAt(0);
@@ -41,4 +46,11 @@ export class MediaService {
     }
   }
   
+  newUserMedia() {
+    this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
+  }
+  newComment() {
+    //this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
+  }
+
 }
