@@ -22,9 +22,9 @@
       <ion-slide button *ngFor="let file of allMedia; index as i" fxLayout="column">
 
         <ion-card class="imgPlayAudio">
-          <!-- <img src="data:image/png;base64,{{file.previewSrc}}" alt=""> -->
+          <img *ngIf="file.isImage&&!file.isVideo" src="data:image/png;base64,{{file.previewSrc}}" alt="">
 
-          <img *ngIf="file.isImage&&!file.isVideo" src="{{file.previewSrc}}" alt="">
+          <!-- <img *ngIf="file.isImage&&!file.isVideo" src="{{file.previewSrc}}" alt=""> -->
 
           <video *ngIf="!file.isImage&&file.isVideo" controls>
             <source src="{{file.previewSrc}}" type="video/mp4">
@@ -72,13 +72,13 @@
         <ion-item lines="none">
           <p>{{item.comment}}</p>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
           <ion-buttons mode="ios">
             <ion-button (click)="liked(item)" [style.color]="item.like? '#e52f1e':'#808080'">
               <ion-icon name="heart"></ion-icon>
             </ion-button>
           </ion-buttons>
-        </ion-item>
+        </ion-item> -->
       </div>
     </ion-list>
   </div>

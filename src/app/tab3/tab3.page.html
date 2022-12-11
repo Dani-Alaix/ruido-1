@@ -15,8 +15,30 @@
 
   <div class="main-content">
 
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="newPhoto()" color="secondary">
+    <ion-list *ngIf="addPhoto">
+      <ion-item>
+        <ion-button slot="end" (click)="addPhoto=!addPhoto">Cancelar</ion-button>
+      </ion-item>
+      
+      <form [formGroup]="photoForm">
+        <ion-item lines="none">
+          <ion-label>Nombre</ion-label>
+          <ion-input formControlName="nameUser"> </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label></ion-label>
+          <ion-input formControlName="imgUser"> </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-button (click)="savePhoto()">Guardar</ion-button>
+        </ion-item>
+
+      </form>
+    </ion-list>
+
+
+    <ion-fab *ngIf="!addPhoto" vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="addPhoto=!addPhoto" color="secondary">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
     </ion-fab>

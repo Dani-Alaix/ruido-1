@@ -1,5 +1,5 @@
 export interface Media {
-    id: number,
+    id?: number,
     name: string,
     description: string,
     isImage: boolean,
@@ -9,6 +9,6 @@ export interface Media {
     comments: {
         user: string,
         comment: string,
-        like: boolean,
+        //like: boolean,
     }[]
 }

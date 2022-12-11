@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Media } from '../models/media';
 
 @Injectable({
     providedIn: 'root'
@@ -51,10 +52,19 @@ export class MediaService {
 
 
     newUserMedia() {
-        this.fireStore.collection('test5').add({ 'asdf': 'Oliver y Lola' });
+        this.fireStore.collection('userGallery').add({ 'asdf': 'Oliver y Lola' });
     }
     newComment() {
         //this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
+    }
+
+    getGallery(): Observable<any> {
+        return this.collection.snapshotChanges().pipe(
+            map(document => document.map(dca => {
+                const data = dca.payload.doc.data() as Media;
+                return { ...data };
+            }))
+        );
     }
 
 }
