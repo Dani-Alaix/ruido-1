@@ -1,5 +1,5 @@
 export interface Media {
-    id?: number,
+    id?: any,
     name: string,
     description: string,
     isImage: boolean,

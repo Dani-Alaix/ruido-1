@@ -41,6 +41,7 @@ export class Tab2Page implements OnInit {
 
   selectMedia(file: any) {
     console.log("select media:", file);
+    console.log("id media:", file.id);
     this.currentMedia = file;
   }
 
@@ -53,15 +54,13 @@ export class Tab2Page implements OnInit {
   getMedia() {
     this.mediaService.getGallery().subscribe(
       res => {
-        console.log("response gallery: ", res);
+        //console.log("response gallery: ", res);
         this.allMedia = res;
       },
       err => {
         console.log("error gallery: ", err);
       }
     );
-
-    this.mediaService.getGallery()
   }
 
 
@@ -69,9 +68,13 @@ export class Tab2Page implements OnInit {
     let newUserComment = {
       user: this.nameUser.value,
       comment: this.commentUser.value,
-      date: new Date(),
+      date: new Date().toString(),
     }
+
+    this.mediaService.newComment(this.currentMedia.id, newUserComment);
     console.log("nuevo comentario:", newUserComment);
+    this.newComment = false;
+    this.currentMedia=this.currentMedia;
   }
 
 }

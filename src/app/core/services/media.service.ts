@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-//import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Media } from '../models/media';
 import { UserMedia } from '../models/user-media';
+
+import * as firebase from "firebase/app";
+import { arrayUnion } from '@angular/fire/firestore'
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +17,8 @@ export class MediaService {
 
     private collection: AngularFirestoreCollection;
     private usersCollection: AngularFirestoreCollection;
+
+    private document: AngularFirestoreDocument;
 
     constructor(private fireStore: AngularFirestore) {
         this.collection = fireStore.collection<any>('test');
@@ -54,7 +60,7 @@ export class MediaService {
     }
 
 
-    newUserMedia(data:UserMedia) {
+    newUserMedia(data: UserMedia) {
         this.fireStore.collection('userGallery').add(data);
     }
     getUsersGallery(): Observable<any> {
@@ -66,16 +72,19 @@ export class MediaService {
         );
     }
 
-
-    newComment() {
-        //this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
+    newComment(id: any, data: any) {
+        this.document = this.fireStore.doc<any>(`test/${id}`);
+        this.document.update({
+            comments: arrayUnion(data)
+        });
     }
 
     getGallery(): Observable<any> {
         return this.collection.snapshotChanges().pipe(
             map(document => document.map(dca => {
                 const data = dca.payload.doc.data() as Media;
-                return { ...data };
+                const id = dca.payload.doc.id;
+                return { id, ...data };
             }))
         );
     }
