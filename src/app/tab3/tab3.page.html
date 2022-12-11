@@ -15,22 +15,26 @@
 
   <div class="main-content">
 
-    <ion-list *ngIf="addPhoto">
-      <ion-item>
-        <ion-button slot="end" (click)="addPhoto=!addPhoto">Cancelar</ion-button>
-      </ion-item>
+    <ion-list *ngIf="addPhoto">      
       
       <form [formGroup]="photoForm">
         <ion-item lines="none">
-          <ion-label>Nombre</ion-label>
-          <ion-input formControlName="nameUser"> </ion-input>
+          <ion-label position="floating">Nombre*</ion-label>
+          <ion-input formControlName="nameUser" placeholder="Nombre o usuario"> </ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-label></ion-label>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-input formControlName="descriptionUser" placeholder="Información adicional a la fotografía"> </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating">foto</ion-label>
           <ion-input formControlName="imgUser"> </ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-button (click)="savePhoto()">Guardar</ion-button>
+          <ion-buttons slot="end">            
+            <ion-button (click)="addPhoto=!addPhoto" mode="ios" fill="outline" color="tertiary" class="withCustom">Cancelar</ion-button>
+            <ion-button (click)="savePhoto()" mode="ios" fill="solid" color="secondary" class="withCustom">Guardar</ion-button>  
+          </ion-buttons>          
         </ion-item>
 
       </form>

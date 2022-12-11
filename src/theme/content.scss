@@ -2,3 +2,21 @@ ion-grid, ion-toolbar, .main-content {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+ion-input, ion-textarea {
+    background-color: #F8F8F8;
+    --background: #F8F8F8;
+    --border-radius: 8px 8px 0px 0px;
+    --padding-bottom: 8px !important;
+    --padding-end: 8px !important;
+    --padding-start: 8px !important;
+    --padding-top: 8px !important;
+    box-shadow: inset 0px -1px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  ion-button {
+    --border-radius: 8px!important;
+    &.withCustom {
+        width: 200px;
+    }
+  }

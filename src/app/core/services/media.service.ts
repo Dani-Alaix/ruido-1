@@ -52,7 +52,7 @@ export class MediaService {
 
 
     newUserMedia() {
-        this.fireStore.collection('userGallery').add({ 'asdf': 'Oliver y Lola' });
+        //this.fireStore.collection('userGallery').add({ 'asdf': '1234' });
     }
     newComment() {
         //this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
