@@ -19,7 +19,7 @@
       <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
     </ion-button>
     <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">
-      <ion-slide button *ngFor="let file of allMedia; index as i" fxLayout="column">
+      <ion-slide button *ngFor="let file of allMedia; index as i">
 
         <ion-card class="imgPlayAudio">
           <img *ngIf="file.isImage&&!file.isVideo" src="data:image/png;base64,{{file.previewSrc}}" alt="">
@@ -46,7 +46,7 @@
     </ion-button>
 
   </div>
-  <div class="comments" *ngIf="currentMedia" fxLayout="row">
+  <div class="comments" *ngIf="currentMedia">
     
       <ion-item>
         <ion-label color="primary">Título
