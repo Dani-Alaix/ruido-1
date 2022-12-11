@@ -9,6 +9,7 @@ export interface Media {
     comments: {
         user: string,
         comment: string,
+        date: Date,
         //like: boolean,
     }[]
 }

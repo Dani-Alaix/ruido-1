@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IonSlides } from '@ionic/angular';
 import { Media } from '../../app/core/models/media'
 import { MediaService } from '../core/services/media.service';
@@ -18,13 +19,24 @@ export class Tab2Page implements OnInit {
 
   public allMedia: Media[];
   public currentMedia: Media;
-  playAudio: any;
-  previewImg: any;
 
+  newComment: boolean = false;
+  public commentForm: FormGroup;
+  public nameUser: FormControl;
+  public commentUser: FormControl;
+  
   constructor(private mediaService: MediaService) { }
 
   ngOnInit() {
     this.getMedia();
+
+    this.nameUser = new FormControl("", Validators.required);
+    this.commentUser = new FormControl("", Validators.required);
+    this.commentForm = new FormGroup({
+        nameUser: this.nameUser,
+        commentUser: this.commentUser
+    });
+
   }
 
   selectMedia(file: any) {
@@ -38,9 +50,9 @@ export class Tab2Page implements OnInit {
     else if (!comment.like) comment.likes--;
   }
 
-  getMedia(){
+  getMedia() {
     this.mediaService.getGallery().subscribe(
-      res=> {
+      res => {
         console.log("response gallery: ", res);
         this.allMedia = res;
       },
@@ -50,6 +62,16 @@ export class Tab2Page implements OnInit {
     );
 
     this.mediaService.getGallery()
+  }
+
+
+  sendComment(){
+    let newUserComment = {
+      user: this.nameUser.value,
+      comment: this.commentUser.value,
+      date: new Date(),
+    }
+    console.log("nuevo comentario:", newUserComment);
   }
 
 }

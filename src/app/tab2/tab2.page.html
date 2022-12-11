@@ -14,16 +14,19 @@
   </ion-header> -->
 
   <div class="main-content" style="position: relative;">
+    <ion-title color="secondary">¿Qué emociones o sensaciones te producen las siguientes imágenes? <br>
+      <span>Deja tus comentarios abajo de los elementos multimedia * </span>
+    </ion-title>
 
     <ion-button color="light" shape="round" class="arrow-left" (click)="slider.slidePrev()">
       <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">      
+    <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">
       <ion-slide button *ngFor="let file of allMedia; index as i">
 
         <ion-card class="imgPlayAudio">
           <img *ngIf="file.isImage&&!file.isVideo" src="data:image/png;base64,{{file.previewSrc}}" alt="">
-          
+
           <video *ngIf="!file.isImage&&file.isVideo" controls>
             <source src="{{file.previewSrc}}" type="video/mp4">
           </video>
@@ -31,7 +34,7 @@
             <source [src]="playAudio[i]" type="audio/mp3" />
           </audio> -->
           <audio *ngIf="!file.isImage&&!file.isVideo" controls="controls">
-            <source src="{{file.previewAudio}}" type="audio/mp3" />
+            <source src="data:audio/mp3;base64, {{file.previewAudio}}" type="audio/mp3" />
           </audio>
 
         </ion-card>
@@ -44,29 +47,53 @@
 
   </div>
 
-  <div class="comments info" *ngIf="currentMedia">    
-      <div class="data-sheet">
-        <ion-label color="primary">Título
-          <p>{{currentMedia.name}}</p>
-        </ion-label>
-      </div>
-      <div class="data-sheet">
-        <ion-label color="primary">Descripción
-          <p>{{currentMedia.description}}</p>
-        </ion-label>
-      </div>
+  <div class="comments info" *ngIf="currentMedia">
+    <div class="data-sheet">
+      <ion-label color="primary">Título
+        <p>{{currentMedia.name}}</p>
+      </ion-label>
+    </div>
+    <div class="data-sheet">
+      <ion-label color="primary">Descripción
+        <p>{{currentMedia.description}}</p>
+      </ion-label>
+    </div>
   </div>
 
   <div class="comments" *ngIf="currentMedia">
+
+    <ion-list>
+      <ion-item lines="none">
+        <ion-buttons slot="end">
+          <ion-button *ngIf="!newComment" mode="ios" fill="solid" class="withCustom" color="primary"
+            (click)="newComment=true">Agregar comentario</ion-button>
+          <ion-button *ngIf="newComment" mode="ios" fill="outline" color="tertiary"
+            (click)="newComment=false">Cancelar</ion-button>
+          <ion-button *ngIf="newComment" mode="ios" fill="solid" class="withCustom" color="primary"
+            (click)="sendComment()">Guardar</ion-button>
+        </ion-buttons>
+      </ion-item>
+      <form [formGroup]="commentForm" *ngIf="newComment">
+        <ion-item lines="none">
+          <ion-label position="floating" color="primary">Nombre*</ion-label>
+          <ion-input formControlName="nameUser" placeholder="Nombre"> </ion-input>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-label position="floating" color="primary">Comentario</ion-label>
+          <ion-input formControlName="commentUser" placeholder="Escribe tu punto de vista o reflexión ..."> </ion-input>
+        </ion-item>
+      </form>
+    </ion-list>
+
     <ion-list>
       <div class="posts" *ngFor="let item of currentMedia.comments">
         <ion-item class="title" lines="none">
           <ion-text>
             <h3>{{item.user}}</h3>
-            <p>2h</p>
+            <p>{{item.date? 'item.date | date' : '-'}}</p>
           </ion-text>
         </ion-item>
-        <ion-item lines="none">
+        <ion-item>
           <p>{{item.comment}}</p>
         </ion-item>
         <!-- <ion-item>

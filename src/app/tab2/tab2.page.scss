@@ -1,5 +1,14 @@
 
 .main-content {
+    ion-title {
+        text-align: center;
+        margin-top: 12px;
+        span {
+            color: var(--ion-color-medium);
+            font-size: 14px;
+            font-weight: 300;
+        }
+    }
     ion-button{
         --padding-end: 5px;
         --padding-start: 5px;
@@ -67,8 +76,9 @@
     margin: 0 auto;
     &.info {
         display: table;
-        border-bottom: 1px solid var(--ion-color-medium-tint);
+        border: 1px solid var(--ion-color-medium-tint);
         padding: 8px 16px;
+        border-radius: 8px;
         .data-sheet {
             display: table-cell;
             vertical-align: middle;

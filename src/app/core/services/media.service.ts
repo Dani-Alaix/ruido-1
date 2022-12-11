@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Media } from '../models/media';
+import { UserMedia } from '../models/user-media';
 
 @Injectable({
     providedIn: 'root'
@@ -11,9 +12,11 @@ import { Media } from '../models/media';
 export class MediaService {
 
     private collection: AngularFirestoreCollection;
+    private usersCollection: AngularFirestoreCollection;
 
     constructor(private fireStore: AngularFirestore) {
         this.collection = fireStore.collection<any>('test');
+        this.usersCollection = fireStore.collection<any>('userGallery');
     }
 
 
@@ -51,9 +54,19 @@ export class MediaService {
     }
 
 
-    newUserMedia() {
-        //this.fireStore.collection('userGallery').add({ 'asdf': '1234' });
+    newUserMedia(data:UserMedia) {
+        this.fireStore.collection('userGallery').add(data);
     }
+    getUsersGallery(): Observable<any> {
+        return this.usersCollection.snapshotChanges().pipe(
+            map(document => document.map(dca => {
+                const data = dca.payload.doc.data() as Media;
+                return { ...data };
+            }))
+        );
+    }
+
+
     newComment() {
         //this.fireStore.collection('test5').add({ 'asdf': 'perrisa' });
     }
