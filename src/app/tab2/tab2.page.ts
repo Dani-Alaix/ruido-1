@@ -18,7 +18,8 @@ export class Tab2Page implements OnInit {
 
   public allMedia: Media[];
   public currentMedia: Media;
-  playAudio = [];
+  playAudio: any;
+  previewImg: any;
 
   constructor(private mediaService: MediaService) { }
 

@@ -18,18 +18,15 @@
     <ion-button color="light" shape="round" class="arrow-left" (click)="slider.slidePrev()">
       <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
     </ion-button>
-    <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">
+    <ion-slides #slider *ngIf="allMedia&&allMedia.length!=0" [options]="slideOpts">      
       <ion-slide button *ngFor="let file of allMedia; index as i">
 
         <ion-card class="imgPlayAudio">
           <img *ngIf="file.isImage&&!file.isVideo" src="data:image/png;base64,{{file.previewSrc}}" alt="">
-
-          <!-- <img *ngIf="file.isImage&&!file.isVideo" src="{{file.previewSrc}}" alt=""> -->
-
+          
           <video *ngIf="!file.isImage&&file.isVideo" controls>
             <source src="{{file.previewSrc}}" type="video/mp4">
           </video>
-
           <!-- <audio *ngIf="!file.isImage&&!file.isVideo" controls="controls" #figAudio>
             <source [src]="playAudio[i]" type="audio/mp3" />
           </audio> -->
@@ -46,18 +43,18 @@
     </ion-button>
 
   </div>
-  <div class="comments" *ngIf="currentMedia">
-    
-      <ion-item>
+
+  <div class="comments info" *ngIf="currentMedia">    
+      <div class="data-sheet">
         <ion-label color="primary">Título
           <p>{{currentMedia.name}}</p>
         </ion-label>
-      </ion-item>
-      <ion-item>
+      </div>
+      <div class="data-sheet">
         <ion-label color="primary">Descripción
           <p>{{currentMedia.description}}</p>
         </ion-label>
-      </ion-item>
+      </div>
   </div>
 
   <div class="comments" *ngIf="currentMedia">

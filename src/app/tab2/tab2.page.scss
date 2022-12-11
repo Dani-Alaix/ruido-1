@@ -21,6 +21,7 @@
         max-width: 420px;
         min-width: 420px;
         margin-left: 20px;
+        display: block;
         ion-card{
             cursor: pointer;
             position: relative;
@@ -43,6 +44,10 @@
                 width: 90%;
             }
         }
+        ion-icon {
+            margin: auto;
+            display: block;
+        }
         ion-list {
             width: 420px;
             ion-label {
@@ -60,6 +65,18 @@
 .comments {
     max-width: 800px;
     margin: 0 auto;
+    &.info {
+        display: table;
+        border-bottom: 1px solid var(--ion-color-medium-tint);
+        padding: 8px 16px;
+        .data-sheet {
+            display: table-cell;
+            vertical-align: middle;
+            &:nth-child(1){
+                width: 30%;
+            }
+        }
+    }
     .posts {
         .title {
             ion-text {
